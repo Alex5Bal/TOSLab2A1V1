@@ -36,6 +36,8 @@ int main(int argc, char** argv, char** envp)
 			}
 			else if(pid == 0)
 			{
+				program = strCat("/", args[0]);
+
 				while(envp[i] != (char*)0)
 				{
 					tokenVec = Mytoc(envp[i], '=');
@@ -54,12 +56,33 @@ int main(int argc, char** argv, char** envp)
 					i++;
 
 				}
-				execve("/bin/ls", args, envp);
+
+				i = 0;
+
+				while(pathVec[i] != (char*)0)
+				{
+					args[0] = strCat(pathVec[i], program);
+					execve(args[0], args, envp);
+					i++;
+				}
+
 				printf("Command not found\n")
 				exit(0);
 			}
+
+			else
+			{
+				wait(NULL);
+			}
+		}
+		free(string);
+
+		for (int i = 0; args[i] != '\0'; i++)
+		{
+			free(args[i]);
 		}
 
-		free(string);
+		free(args);
 	}
+	return 0;
 }
