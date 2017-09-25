@@ -66,7 +66,7 @@ int main(int argc, char** argv, char** envp)
 					i++;
 				}
 
-				printf("Command not found\n")
+				printf("Command not found\n");
 				exit(0);
 			}
 
